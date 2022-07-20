@@ -1,9 +1,15 @@
-import './App.css';
+import { Route, Router, Routes } from "react-router-dom";
+import "./App.css";
+import Login from "./Pages/Login";
 
 function App() {
   return (
     <div className="App">
-      <h1 className="text-3xl btn font-bold underline">Hello world!</h1>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Login />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
