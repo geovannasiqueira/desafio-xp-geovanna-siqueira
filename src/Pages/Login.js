@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const MIN_PASSWORD_LENGTH = 6;
@@ -60,6 +61,7 @@ function Login() {
             Passwords must be at least 6 characters long
           </span>
         </label>
+        <Link to="/stocks">
           <button
             type="button"
             disabled={enableButton()}
@@ -68,6 +70,7 @@ function Login() {
           >
             Login
           </button>
+        </Link>
       </form>
     </div>
   );
