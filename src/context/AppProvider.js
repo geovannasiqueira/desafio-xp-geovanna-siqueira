@@ -1,23 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import fetchStocks from '../services/fetchStocks';
 import AppContext from './AppContext';
 
 function AppProvider({ children }) {
-  const [state, setState] = useState({});
+  const [stocks, setStocks] = useState([]);
+  // const [stockBuy, setStockBuy] = useState({});
 
   const getStocksList = async () => {
-    setState(await fetchStocks());
+    setStocks(await fetchStocks());
   };
 
-  useEffect(() => {
-    getStocksList();
-  }, []);
+  // const setBuy = (stocks) => {
+  //   setStockBuy(stocks);
+  // };
+
+  const contextValue = {
+    stocks,
+    setStocks,
+    // stockBuy,
+    // setStockBuy,
+    getStocksList,
+  }
 
   return (
-    <AppContext.Provider value={ { state } }>
+    <AppContext.Provider value={ contextValue }>
       {children}
     </AppContext.Provider>
   )
 }
+
+AppProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default AppProvider;

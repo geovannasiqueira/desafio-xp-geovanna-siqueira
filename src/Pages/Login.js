@@ -46,7 +46,7 @@ function Login() {
           placeholder="email@test.com"
         />
         <label htmlFor="password" className="label mt-4">
-          <p className="label-text"> Password </p>
+          <p className="label-text"> Senha </p>
         </label>
         <input
           type="password"
@@ -58,7 +58,7 @@ function Login() {
         />
         <label class="label">
           <span class="label-text-alt">
-            Passwords must be at least 6 characters long
+            A senha precisa ter pelo menos 6 caracteres
           </span>
         </label>
         <Link to="/stocks">
