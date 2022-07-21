@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import fetchStocks from '../services/fetchStocks';
 import AppContext from './AppContext';
 
-const INITIAL_STATE = {};
-
 function AppProvider({ children }) {
-  const [state] = useState(INITIAL_STATE);
+  const [state, setState] = useState({});
+
+  const getStocksList = async () => {
+    setState(await fetchStocks());
+  };
+
+  useEffect(() => {
+    getStocksList();
+  }, []);
 
   return (
-    <AppContext.Provider value={ state }>
+    <AppContext.Provider value={ { state } }>
       {children}
     </AppContext.Provider>
   )
