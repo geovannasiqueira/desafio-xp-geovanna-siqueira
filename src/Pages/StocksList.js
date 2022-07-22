@@ -16,8 +16,17 @@ function StocksList() {
     setBudget,
     boughtStocks,
     setBoughtStocks,
+    buyValue,
+    setBuyValue,
+    sellValue,
+    setSellValue,
+    action,
+    setAction,
   } = useContext(AppContext);
   const [warning, setWarning] = useState(false);
+  // const [buy, setbuy] = useState(false);
+  // const [sell, setSell] = useState(false);
+
 
   useEffect(() => {
     getStocksList();
@@ -33,7 +42,13 @@ function StocksList() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qtd]);
 
-  const handleBuy = ({ target }) => {
+  const handleNegociation = ({ target }) => {
+    if (target.className.includes('buy')) {
+      setAction('Comprar');
+    }
+    if (target.className.includes('sell')) {
+      setAction('Vender');
+    }
     const buy = stocks.filter((stock) => stock.stock === target.id);
     setStockBuy(buy[0]);
   };
@@ -61,6 +76,18 @@ function StocksList() {
     sumPrice();
   };
 
+  const handleBuy = ({ target }) => {
+    const inputValue = target.value;
+    setBuyValue(inputValue);
+    setQtd(Math.trunc(Number(target.value) / Number(stockBuy.price)));
+  };
+
+  const handleSell = ({ target }) => {
+    const inputValue = target.value;
+    setSellValue(inputValue);
+    setQtd(Math.trunc(Number(target.value) / Number(stockBuy.price)));
+  };
+
   const sumPrice = () => {
     if (qtd > 0) {
       setPrice((qtd * Number(stockBuy.price)).toFixed(2));
@@ -71,23 +98,41 @@ function StocksList() {
     if (price > budget) {
       return true;
     }
-    // if (Number(qtd) === 0) {
-    //   return true;
-    // }
     return false;
   };
 
-  const handleNegociation = () => {
-    setBoughtStocks([...boughtStocks, {
+  const disableInputBuy = () => {
+    if (action === 'Vender') {
+      return true;
+    }
+    return false;
+  };
+
+  const disableInputSell = () => {
+    if (action === 'Comprar') {
+      return true;
+    }
+    return false;  
+  };
+
+  const handleConfirm = ({target}) => {
+    // if (Number(qtd) === 0) {
+
+    // }
+    setBoughtStocks([
+      ...boughtStocks,
+      {
         stock: stockBuy.stock,
         amount: qtd,
         price: price,
-    }]);
+      },
+    ]);
     const updateBugdet = Number(budget) - Number(price);
     setBudget(updateBugdet);
     updateAmount();
     setQtd("");
     setPrice("");
+    setBuyValue('');
   };
 
   const updateAmount = () => {
@@ -111,33 +156,31 @@ function StocksList() {
             </tr>
           </thead>
           <tbody>
-            {(
-              boughtStocks.map((stock, key) => (
-                <tr key={key}>
-                  <td>{stock.stock}</td>
-                  <td>{stock.amount}</td>
-                  <td>{stock.price}</td>
-                  <td>
-                    <label
-                      htmlFor="my-modal-3"
-                      id={stock.stock}
-                      className="btn modal-button"
-                      onClick={handleBuy}
-                    >
-                      C
-                    </label>
-                    <label
-                      htmlFor="my-modal-3"
-                      id={stock.stock}
-                      className="btn modal-button"
-                      onClick={handleBuy}
-                    >
-                      V
-                    </label>
-                  </td>
-                </tr>
-              ))
-            )}
+            {boughtStocks.map((stock, key) => (
+              <tr key={key}>
+                <td>{stock.stock}</td>
+                <td>{stock.amount}</td>
+                <td>{stock.price}</td>
+                <td>
+                  <label
+                    htmlFor="my-modal-3"
+                    id={stock.stock}
+                    className="btn modal-button buy"
+                    onClick={handleNegociation}
+                  >
+                    C
+                  </label>
+                  <label
+                    htmlFor="my-modal-3"
+                    id={stock.stock}
+                    className="btn modal-button sell"
+                    onClick={handleNegociation}
+                  >
+                    V
+                  </label>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <h2 className="text-xl font-bold mb-6">Disponíveis para investir</h2>
@@ -161,8 +204,8 @@ function StocksList() {
                     <label
                       htmlFor="my-modal-3"
                       id={stock.stock}
-                      className="btn modal-button"
-                      onClick={handleBuy}
+                      className="btn modal-button buy"
+                      onClick={handleNegociation}
                     >
                       C
                     </label>
@@ -250,25 +293,45 @@ function StocksList() {
             </div>
             <div className="form-control w-full gap-2">
               <label className="input-group input-group-sm" htmlFor="buy">
-                <span className="w-28" name="buy">
+                <button
+                  name="buy"
+                  // onClick={handleBuy}
+                  className="btn btn-sm w-28"
+                >
                   Comprar
-                </span>
+                </button>
                 <input
                   type="text"
-                  className="input input-bordered input-sm w-40"
+                  className="input input-bordered input-sm w-full max-w-xs"
+                  id="buyInput"
+                  value={buyValue}
+                  disabled={disableInputBuy()}
+                  onChange={handleBuy}
                 />
               </label>
               <label className="input-group input-group-sm" htmlFor="sell">
-                <span className="w-28" name="sell">
+                <button
+                  name="sell"
+                  // onClick={handleBuy}
+                  className="btn btn-sm w-28"
+                >
                   Vender
-                </span>
+                </button>
                 <input
                   type="text"
-                  className="input input-bordered input-sm w-40"
+                  className="input input-bordered input-sm w-full max-w-xs"
+                  id="sellInput"
+                  disabled={disableInputSell()}
+                  value={sellValue}
+                  onChange={handleSell}
                 />
               </label>
             </div>
             <div className="divider"></div>
+            <div className="flex justify-between w-full">
+              <h2>Tipo de ação</h2>
+              <h2 className="font-bold">{action}</h2>
+            </div>
             <div className="flex justify-between w-full">
               <h2 className="font-bold">Preço por unidade</h2>
               <h2 className="font-bold">R$ {stockBuy.price}</h2>
@@ -291,7 +354,7 @@ function StocksList() {
                 <button
                   type="button"
                   className="btn mt-4"
-                  onClick={handleNegociation}
+                  onClick={handleConfirm}
                   disabled={enableButton()}
                 >
                   Confirmar
@@ -303,7 +366,7 @@ function StocksList() {
                 <label
                   htmlFor="my-modal-3"
                   className="btn mt-4"
-                  onClick={handleNegociation}
+                  onClick={handleConfirm}
                   disabled={enableButton()}
                 >
                   Confirmar

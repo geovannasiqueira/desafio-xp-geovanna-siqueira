@@ -10,7 +10,9 @@ function AppProvider({ children }) {
   const [price, setPrice] = useState('');
   const [budget, setBudget] = useState(10000);
   const [boughtStocks, setBoughtStocks] = useState([]);
-
+  const [buyValue, setBuyValue] = useState('');
+  const [sellValue, setSellValue] = useState('');
+  const [action, setAction] = useState('');
 
   const getStocksList = async () => {
     setStocks(await fetchStocks());
@@ -29,7 +31,13 @@ function AppProvider({ children }) {
     price,
     setPrice,
     budget,
-    setBudget
+    setBudget,
+    buyValue,
+    setBuyValue,
+    sellValue,
+    setSellValue,
+    action,
+    setAction,
   }
 
   return (
