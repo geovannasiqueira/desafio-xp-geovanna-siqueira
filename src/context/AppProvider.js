@@ -5,22 +5,31 @@ import AppContext from './AppContext';
 
 function AppProvider({ children }) {
   const [stocks, setStocks] = useState([]);
-  // const [stockBuy, setStockBuy] = useState({});
+  const [stockBuy, setStockBuy] = useState([{}]);
+  const [qtd, setQtd] = useState('');
+  const [price, setPrice] = useState('');
+  const [budget, setBudget] = useState(10000);
+  const [boughtStocks, setBoughtStocks] = useState([]);
+
 
   const getStocksList = async () => {
     setStocks(await fetchStocks());
   };
 
-  // const setBuy = (stocks) => {
-  //   setStockBuy(stocks);
-  // };
-
   const contextValue = {
     stocks,
     setStocks,
-    // stockBuy,
-    // setStockBuy,
+    stockBuy,
+    setStockBuy,
     getStocksList,
+    qtd,
+    setQtd,
+    boughtStocks,
+    setBoughtStocks,
+    price,
+    setPrice,
+    budget,
+    setBudget
   }
 
   return (

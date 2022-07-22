@@ -56,8 +56,8 @@ function Login() {
           onChange={handlePassword}
           className="input input-bordered rounded-md h-10"
         />
-        <label class="label">
-          <span class="label-text-alt">
+        <label className="label">
+          <span className="label-text-alt">
             A senha precisa ter pelo menos 6 caracteres
           </span>
         </label>
