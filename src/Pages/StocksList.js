@@ -1,4 +1,3 @@
-import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
 import React, { useContext, useEffect, useState } from "react";
 import AppContext from "../context/AppContext";
 
@@ -22,6 +21,7 @@ function StocksList() {
 
   useEffect(() => {
     getStocksList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -30,6 +30,7 @@ function StocksList() {
     }
     setWarning(false);
     sumPrice();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qtd]);
 
   const handleBuy = ({ target }) => {
@@ -70,11 +71,18 @@ function StocksList() {
     if (price > budget) {
       return true;
     }
+    // if (Number(qtd) === 0) {
+    //   return true;
+    // }
     return false;
   };
 
   const handleNegociation = () => {
-    setBoughtStocks([...boughtStocks, stockBuy]);
+    setBoughtStocks([...boughtStocks, {
+        stock: stockBuy.stock,
+        amount: qtd,
+        price: price,
+    }]);
     const updateBugdet = Number(budget) - Number(price);
     setBudget(updateBugdet);
     updateAmount();
@@ -83,14 +91,56 @@ function StocksList() {
   };
 
   const updateAmount = () => {
-    console.log(stocks.filter((stock) => stock === stockBuy).map((stock) => stock.amount = stock.amount - qtd));
+    stocks
+      .filter((stock) => stock === stockBuy)
+      .map((stock) => (stock.amount = stock.amount - qtd));
     setStocks(stocks);
   };
 
   return (
     <div className="w-full h-full flex justify-center items-center flex-col">
       <div className="overflow-y-auto no-scrollbar">
-        <h2>Available for investing</h2>
+        <h2 className="text-xl font-bold mb-6">Minhas ações</h2>
+        <table className="table table-zebra inline-flex flex-col gap-2 w-96 p-12 bg-white rounded-md shadow-xl mb-8">
+          <thead>
+            <tr>
+              <th>Ação</th>
+              <th>Qtde</th>
+              <th>Valor( R$ )/un</th>
+              <th>Negociar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(
+              boughtStocks.map((stock, key) => (
+                <tr key={key}>
+                  <td>{stock.stock}</td>
+                  <td>{stock.amount}</td>
+                  <td>{stock.price}</td>
+                  <td>
+                    <label
+                      htmlFor="my-modal-3"
+                      id={stock.stock}
+                      className="btn modal-button"
+                      onClick={handleBuy}
+                    >
+                      C
+                    </label>
+                    <label
+                      htmlFor="my-modal-3"
+                      id={stock.stock}
+                      className="btn modal-button"
+                      onClick={handleBuy}
+                    >
+                      V
+                    </label>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+        <h2 className="text-xl font-bold mb-6">Disponíveis para investir</h2>
         <table className="table table-zebra inline-flex flex-col gap-2 w-96 p-12 bg-white rounded-md shadow-xl ">
           <thead>
             <tr>
@@ -106,7 +156,7 @@ function StocksList() {
                 <tr key={key}>
                   <td>{stock.stock}</td>
                   <td>{stock.amount}</td>
-                  <td>{stock.price}</td>
+                  <td>{(stock.price).toFixed(2)}</td>
                   <td>
                     <label
                       htmlFor="my-modal-3"
