@@ -18,6 +18,10 @@ function QuantityBtn() {
     if (qtd > 0) {
       setPrice((qtd * Number(stockBuy.price)).toFixed(2));
     }
+
+    if (qtd === 0) {
+      setPrice(0);
+    }
   };
 
   const handleAdd = () => {
