@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import MyStocksTable from "../components/MyStocksTable";
 import StocksTable from "../components/StocksTable";
 import AppContext from "../context/AppContext";
 
@@ -6,9 +7,7 @@ function StocksList() {
   const {
     stocks,
     setStocks,
-    // getStocksList,
     stockBuy,
-    setStockBuy,
     qtd,
     setQtd,
     price,
@@ -83,20 +82,20 @@ function StocksList() {
   };
 
   const disableInputBuy = () => {
-    if (action === 'Vender') {
+    if (action === "Vender") {
       return true;
     }
     return false;
   };
 
   const disableInputSell = () => {
-    if (action === 'Comprar') {
+    if (action === "Comprar") {
       return true;
     }
-    return false;  
+    return false;
   };
 
-  const handleConfirm = ({target}) => {
+  const handleConfirm = ({ target }) => {
     // if (Number(qtd) === 0) {
 
     // }
@@ -113,7 +112,7 @@ function StocksList() {
     updateAmount();
     setQtd("");
     setPrice("");
-    setBuyValue('');
+    setBuyValue("");
   };
 
   const updateAmount = () => {
@@ -126,44 +125,7 @@ function StocksList() {
   return (
     <div className="w-full h-full flex justify-center items-center flex-col">
       <div className="overflow-y-auto no-scrollbar">
-        <h2 className="text-xl font-bold mb-6">Minhas ações</h2>
-        <table className="table table-zebra inline-flex flex-col gap-2 w-96 p-12 bg-white rounded-md shadow-xl mb-8">
-          <thead>
-            <tr>
-              <th>Ação</th>
-              <th>Qtde</th>
-              <th>Valor( R$ )/un</th>
-              <th>Negociar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {boughtStocks.map((stock, key) => (
-              <tr key={key}>
-                <td>{stock.stock}</td>
-                <td>{stock.amount}</td>
-                <td>{stock.price}</td>
-                <td>
-                  <label
-                    htmlFor="my-modal-3"
-                    id={stock.stock}
-                    className="btn modal-button buy"
-                    // onClick={handleNegociation}
-                  >
-                    C
-                  </label>
-                  <label
-                    htmlFor="my-modal-3"
-                    id={stock.stock}
-                    className="btn modal-button sell"
-                    // onClick={handleNegociation}
-                  >
-                    V
-                  </label>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <MyStocksTable />
         <StocksTable />
         <input type="checkbox" id="my-modal-3" className="modal-toggle" />
         <div className="modal">
@@ -241,10 +203,7 @@ function StocksList() {
             </div>
             <div className="form-control w-full gap-2">
               <label className="input-group input-group-sm" htmlFor="buy">
-                <button
-                  name="buy"
-                  className="btn btn-sm w-28"
-                >
+                <button name="buy" className="btn btn-sm w-28">
                   Comprar
                 </button>
                 <input
@@ -257,10 +216,7 @@ function StocksList() {
                 />
               </label>
               <label className="input-group input-group-sm" htmlFor="sell">
-                <button
-                  name="sell"
-                  className="btn btn-sm w-28"
-                >
+                <button name="sell" className="btn btn-sm w-28">
                   Vender
                 </button>
                 <input
