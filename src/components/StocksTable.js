@@ -20,7 +20,7 @@ function StocksTable() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <h2 className="text-xl font-bold mb-6">Disponíveis para investir</h2>
       <table className="table table-zebra inline-flex flex-col gap-2 w-96 p-12 bg-white rounded-md shadow-xl ">
         <thead>
