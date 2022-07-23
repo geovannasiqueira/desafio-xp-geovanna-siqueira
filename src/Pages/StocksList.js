@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import StocksTable from "../components/StocksTable";
 import AppContext from "../context/AppContext";
 
 function StocksList() {
   const {
     stocks,
     setStocks,
-    getStocksList,
+    // getStocksList,
     stockBuy,
     setStockBuy,
     qtd,
@@ -21,17 +22,8 @@ function StocksList() {
     sellValue,
     setSellValue,
     action,
-    setAction,
   } = useContext(AppContext);
   const [warning, setWarning] = useState(false);
-  // const [buy, setbuy] = useState(false);
-  // const [sell, setSell] = useState(false);
-
-
-  useEffect(() => {
-    getStocksList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (qtd < 0) {
@@ -41,17 +33,6 @@ function StocksList() {
     sumPrice();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qtd]);
-
-  const handleNegociation = ({ target }) => {
-    if (target.className.includes('buy')) {
-      setAction('Comprar');
-    }
-    if (target.className.includes('sell')) {
-      setAction('Vender');
-    }
-    const buy = stocks.filter((stock) => stock.stock === target.id);
-    setStockBuy(buy[0]);
-  };
 
   const handleAdd = () => {
     if (qtd < Number(stockBuy.amount)) {
@@ -166,7 +147,7 @@ function StocksList() {
                     htmlFor="my-modal-3"
                     id={stock.stock}
                     className="btn modal-button buy"
-                    onClick={handleNegociation}
+                    // onClick={handleNegociation}
                   >
                     C
                   </label>
@@ -174,7 +155,7 @@ function StocksList() {
                     htmlFor="my-modal-3"
                     id={stock.stock}
                     className="btn modal-button sell"
-                    onClick={handleNegociation}
+                    // onClick={handleNegociation}
                   >
                     V
                   </label>
@@ -183,40 +164,7 @@ function StocksList() {
             ))}
           </tbody>
         </table>
-        <h2 className="text-xl font-bold mb-6">Disponíveis para investir</h2>
-        <table className="table table-zebra inline-flex flex-col gap-2 w-96 p-12 bg-white rounded-md shadow-xl ">
-          <thead>
-            <tr>
-              <th>Ação</th>
-              <th>Qtde</th>
-              <th>Valor( R$ )/un</th>
-              <th>Negociar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {stocks ? (
-              stocks.map((stock, key) => (
-                <tr key={key}>
-                  <td>{stock.stock}</td>
-                  <td>{stock.amount}</td>
-                  <td>{(stock.price).toFixed(2)}</td>
-                  <td>
-                    <label
-                      htmlFor="my-modal-3"
-                      id={stock.stock}
-                      className="btn modal-button buy"
-                      onClick={handleNegociation}
-                    >
-                      C
-                    </label>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <span>Loading...</span>
-            )}
-          </tbody>
-        </table>
+        <StocksTable />
         <input type="checkbox" id="my-modal-3" className="modal-toggle" />
         <div className="modal">
           <div className="modal-box flex flex-col items-center relative gap-4">
@@ -295,7 +243,6 @@ function StocksList() {
               <label className="input-group input-group-sm" htmlFor="buy">
                 <button
                   name="buy"
-                  // onClick={handleBuy}
                   className="btn btn-sm w-28"
                 >
                   Comprar
@@ -312,7 +259,6 @@ function StocksList() {
               <label className="input-group input-group-sm" htmlFor="sell">
                 <button
                   name="sell"
-                  // onClick={handleBuy}
                   className="btn btn-sm w-28"
                 >
                   Vender
