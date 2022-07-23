@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import MyStocksTable from "../components/MyStocksTable";
-import StocksTable from "../components/StocksTable";
-import AppContext from "../context/AppContext";
+import React, { useContext } from 'react';
+import MyStocksTable from '../components/MyStocksTable';
+import QuantityBtn from '../components/QuantityBtn';
+import StocksTable from '../components/StocksTable';
+import AppContext from '../context/AppContext';
 
 function StocksList() {
   const {
@@ -22,39 +23,6 @@ function StocksList() {
     setSellValue,
     action,
   } = useContext(AppContext);
-  const [warning, setWarning] = useState(false);
-
-  useEffect(() => {
-    if (qtd < 0) {
-      setWarning(true);
-    }
-    setWarning(false);
-    sumPrice();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [qtd]);
-
-  const handleAdd = () => {
-    if (qtd < Number(stockBuy.amount)) {
-      setQtd(Number(qtd) + 1);
-      sumPrice();
-    }
-    setWarning(true);
-  };
-
-  const handleSub = () => {
-    if (qtd > 0) {
-      setWarning(false);
-      setQtd(Number(qtd) - 1);
-      sumPrice();
-    }
-    setWarning(true);
-  };
-
-  const handleQtd = ({ target }) => {
-    const qtde = target.value;
-    setQtd(qtde);
-    sumPrice();
-  };
 
   const handleBuy = ({ target }) => {
     const inputValue = target.value;
@@ -68,12 +36,6 @@ function StocksList() {
     setQtd(Math.trunc(Number(target.value) / Number(stockBuy.price)));
   };
 
-  const sumPrice = () => {
-    if (qtd > 0) {
-      setPrice((qtd * Number(stockBuy.price)).toFixed(2));
-    }
-  };
-
   const enableButton = () => {
     if (price > budget) {
       return true;
@@ -82,14 +44,14 @@ function StocksList() {
   };
 
   const disableInputBuy = () => {
-    if (action === "Vender") {
+    if (action === 'Vender') {
       return true;
     }
     return false;
   };
 
   const disableInputSell = () => {
-    if (action === "Comprar") {
+    if (action === 'Comprar') {
       return true;
     }
     return false;
@@ -110,9 +72,9 @@ function StocksList() {
     const updateBugdet = Number(budget) - Number(price);
     setBudget(updateBugdet);
     updateAmount();
-    setQtd("");
-    setPrice("");
-    setBuyValue("");
+    setQtd('');
+    setPrice('');
+    setBuyValue('');
   };
 
   const updateAmount = () => {
@@ -158,48 +120,7 @@ function StocksList() {
               <label htmlFor="qtde" className="mb-2">
                 <p className="label-text"> Quantidade </p>
               </label>
-              {warning ? (
-                <div>
-                  <div className="input-group">
-                    <button className="btn btn-square" onClick={handleSub}>
-                      -
-                    </button>
-                    <input
-                      type="number"
-                      name="qtde"
-                      value={qtd}
-                      onChange={handleQtd}
-                      className="input input-bordered w-20"
-                      min="0"
-                      max={stockBuy.amount}
-                      step="10"
-                    />
-                    <button className="btn btn-square" onClick={handleAdd}>
-                      +
-                    </button>
-                  </div>
-                  <p className="label-text-alt my-2">Quantidade indisponível</p>
-                </div>
-              ) : (
-                <div className="input-group">
-                  <button className="btn btn-square" onClick={handleSub}>
-                    -
-                  </button>
-                  <input
-                    type="number"
-                    name="qtde"
-                    value={qtd}
-                    onChange={handleQtd}
-                    className="input input-bordered w-20"
-                    min="0"
-                    max={stockBuy.amount}
-                    step="10"
-                  />
-                  <button className="btn btn-square" onClick={handleAdd}>
-                    +
-                  </button>
-                </div>
-              )}
+              <QuantityBtn />
             </div>
             <div className="form-control w-full gap-2">
               <label className="input-group input-group-sm" htmlFor="buy">
