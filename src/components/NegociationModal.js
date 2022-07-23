@@ -26,12 +26,12 @@ function NegociationModal() {
       return true;
     }
     if (Number(qtd) === 0) {
-      return(true);
+      return true;
     }
     return false;
   };
 
-  const handleConfirm = ({ target }) => {
+  const handleConfirm = () => {
     setBoughtStocks([
       ...boughtStocks,
       {
@@ -58,8 +58,8 @@ function NegociationModal() {
   return (
     <div>
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box flex flex-col items-center relative gap-4">
+      <div className="modal cursor-pointer">
+        <div className="modal-box flex flex-col items-center relative gap-4 overflow-y-auto no-scrollbar">
           <label
             htmlFor="my-modal-3"
             className="btn btn-sm btn-circle absolute right-2 top-2"
@@ -87,14 +87,15 @@ function NegociationModal() {
           <NegotiationInput />
           <div className="divider"></div>
           <TotalText text="Tipo de ação" value={action} />
-          <TotalText text="Preço por unidade" value={`R$ ${stockBuy.price}`}/>
+          <TotalText text="Preço por unidade" value={`R$ ${stockBuy.price}`} />
           <TotalText text="Quantidade de Ações" value={qtd} />
           <TotalText text="Zero" value="Zero" />
           <div className="divider m-0"></div>
-          <TotalText text="Total" value={`R$ ${price}`} total={true}/>
+          <TotalText text="Total" value={`R$ ${price}`} total={true} />
           <div>
             <button
               type="button"
+              htmlFor="my-modal-3"
               className="btn mt-4"
               onClick={handleConfirm}
               disabled={enableButton()}

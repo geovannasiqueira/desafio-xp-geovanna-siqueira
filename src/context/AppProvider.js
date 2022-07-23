@@ -13,6 +13,7 @@ function AppProvider({ children }) {
   const [buyValue, setBuyValue] = useState('');
   const [sellValue, setSellValue] = useState('');
   const [action, setAction] = useState('');
+  const [value, setValue] = useState('');
 
   const getStocksList = async () => {
     setStocks(await fetchStocks());
@@ -38,6 +39,8 @@ function AppProvider({ children }) {
     setSellValue,
     action,
     setAction,
+    value,
+    setValue,
   }
 
   return (
