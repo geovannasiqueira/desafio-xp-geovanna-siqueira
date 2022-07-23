@@ -23,7 +23,9 @@ function Login() {
   };
 
   const handleClick = () => {
-    const objEmail = { email: email };
+    const date = new Date();
+    console.log(date);
+    const objEmail = { email: email, dataAcesso: date };
     localStorage.setItem('user', JSON.stringify(objEmail));
     setEmail('');
     setPassword('');

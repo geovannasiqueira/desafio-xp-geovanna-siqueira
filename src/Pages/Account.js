@@ -1,18 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import AppContext from '../context/AppContext';
 
 function Account() {
   const { budget, setBudget, value, setValue } = useContext(AppContext);
 
+  useEffect(() => {
+    const updatedBugdet = JSON.parse(localStorage.getItem("budget")) || budget;
+    setBudget(updatedBugdet);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [budget]);
+
   const updateBugdet = ({ target }) => {
     if (target.id === 'deposit') {
+      const newBugdet = Number(budget) + Number(value);
       setBudget(Number(budget) + Number(value));
+      localStorage.setItem("budget", newBugdet);
       setValue('');
     }
     if (target.id === 'withdrawal') {
       if (Number(value) < Number(budget)) {
+        const newBugdet = Number(budget) - Number(value);
         setBudget(Number(budget) - Number(value));
+        localStorage.setItem("budget", newBugdet);
         setValue('');
       }
     }

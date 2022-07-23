@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
-import AppContext from '../context/AppContext';
-import NegotiationInput from './NegociationInput';
-import QuantityBtn from './QuantityBtn';
-import TotalText from './TotalText';
+import React, { useContext, useEffect } from "react";
+import AppContext from "../context/AppContext";
+import NegotiationInput from "./NegociationInput";
+import QuantityBtn from "./QuantityBtn";
+import TotalText from "./TotalText";
 
 function NegociationModal() {
   const {
@@ -21,6 +21,13 @@ function NegociationModal() {
     action,
   } = useContext(AppContext);
 
+  useEffect(() => {
+    const myStocks = JSON.parse(localStorage.getItem("myStocks")) || [];
+    setBoughtStocks(myStocks);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [boughtStocks]);
+
   const enableButton = () => {
     if (price > budget) {
       return true;
@@ -32,20 +39,24 @@ function NegociationModal() {
   };
 
   const handleConfirm = () => {
-    setBoughtStocks([
-      ...boughtStocks,
-      {
-        stock: stockBuy.stock,
-        amount: qtd,
-        price: price,
-      },
-    ]);
+    localStorage.setItem(
+      "myStocks",
+      JSON.stringify([
+        ...boughtStocks,
+        {
+          stock: stockBuy.stock,
+          amount: qtd,
+          price: price,
+        },
+      ])
+    );
     const updateBugdet = Number(budget) - Number(price);
     setBudget(updateBugdet);
+    localStorage.setItem("budget", updateBugdet);
     updateAmount();
-    setQtd('');
-    setPrice('');
-    setBuyValue('');
+    setQtd("");
+    setPrice("");
+    setBuyValue("");
   };
 
   const updateAmount = () => {
