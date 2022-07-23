@@ -26,7 +26,7 @@ function NegociationModal() {
     setBoughtStocks(myStocks);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [boughtStocks]);
+  }, [budget]);
 
   const enableButton = () => {
     if (price > budget) {
