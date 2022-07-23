@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import MyStocksTable from '../components/MyStocksTable';
+import NegotiationInput from '../components/NegociationInput';
 import QuantityBtn from '../components/QuantityBtn';
 import StocksTable from '../components/StocksTable';
 import AppContext from '../context/AppContext';
@@ -17,41 +18,12 @@ function StocksList() {
     setBudget,
     boughtStocks,
     setBoughtStocks,
-    buyValue,
     setBuyValue,
-    sellValue,
-    setSellValue,
     action,
   } = useContext(AppContext);
 
-  const handleBuy = ({ target }) => {
-    const inputValue = target.value;
-    setBuyValue(inputValue);
-    setQtd(Math.trunc(Number(target.value) / Number(stockBuy.price)));
-  };
-
-  const handleSell = ({ target }) => {
-    const inputValue = target.value;
-    setSellValue(inputValue);
-    setQtd(Math.trunc(Number(target.value) / Number(stockBuy.price)));
-  };
-
   const enableButton = () => {
     if (price > budget) {
-      return true;
-    }
-    return false;
-  };
-
-  const disableInputBuy = () => {
-    if (action === 'Vender') {
-      return true;
-    }
-    return false;
-  };
-
-  const disableInputSell = () => {
-    if (action === 'Comprar') {
       return true;
     }
     return false;
@@ -115,41 +87,8 @@ function StocksList() {
                 </tr>
               </tbody>
             </table>
-            <div className="divider"></div>
-            <div className="form-control flex flex-col items center mb-4">
-              <label htmlFor="qtde" className="mb-2">
-                <p className="label-text"> Quantidade </p>
-              </label>
-              <QuantityBtn />
-            </div>
-            <div className="form-control w-full gap-2">
-              <label className="input-group input-group-sm" htmlFor="buy">
-                <button name="buy" className="btn btn-sm w-28">
-                  Comprar
-                </button>
-                <input
-                  type="text"
-                  className="input input-bordered input-sm w-full max-w-xs"
-                  id="buyInput"
-                  value={buyValue}
-                  disabled={disableInputBuy()}
-                  onChange={handleBuy}
-                />
-              </label>
-              <label className="input-group input-group-sm" htmlFor="sell">
-                <button name="sell" className="btn btn-sm w-28">
-                  Vender
-                </button>
-                <input
-                  type="text"
-                  className="input input-bordered input-sm w-full max-w-xs"
-                  id="sellInput"
-                  disabled={disableInputSell()}
-                  value={sellValue}
-                  onChange={handleSell}
-                />
-              </label>
-            </div>
+            <QuantityBtn />
+            <NegotiationInput />
             <div className="divider"></div>
             <div className="flex justify-between w-full">
               <h2>Tipo de ação</h2>

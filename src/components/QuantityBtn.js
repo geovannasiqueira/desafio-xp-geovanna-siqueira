@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import AppContext from '../context/AppContext';
+import React, { useContext, useEffect, useState } from "react";
+import AppContext from "../context/AppContext";
 
 function QuantityBtn() {
   const { stockBuy, qtd, setQtd, setPrice } = useContext(AppContext);
@@ -48,7 +48,10 @@ function QuantityBtn() {
   };
 
   return (
-    <div>
+    <div className="form-control flex flex-col items center mb-4">
+      <label htmlFor="qtde" className="mb-2">
+        <p className="label-text"> Quantidade </p>
+      </label>
       <div className="input-group">
         <button className="btn btn-square" onClick={handleSub}>
           -
