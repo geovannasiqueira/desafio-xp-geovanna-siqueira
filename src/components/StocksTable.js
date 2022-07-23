@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import AppContext from '../context/AppContext';
+import React, { useContext, useEffect } from "react";
+import AppContext from "../context/AppContext";
 
 function StocksTable() {
   const { stocks, setStockBuy, getStocksList, setAction } =
@@ -7,12 +7,13 @@ function StocksTable() {
 
   useEffect(() => {
     getStocksList();
+    console.log(stocks.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNegociation = ({ target }) => {
-    if (target.className.includes('buy')) {
-      setAction('Comprar');
+    if (target.className.includes("buy")) {
+      setAction("Comprar");
     }
     const buy = stocks.filter((stock) => stock.stock === target.id);
     setStockBuy(buy[0]);
@@ -30,26 +31,28 @@ function StocksTable() {
             <th>Negociar</th>
           </tr>
         </thead>
-        <tbody>
-          {stocks &&
-            stocks.map((stock, key) => (
-              <tr key={key}>
-                <td>{stock.stock}</td>
-                <td>{stock.amount}</td>
-                <td>{(stock.price).toFixed(2)}</td>
-                <td>
-                  <label
-                    htmlFor="my-modal-3"
-                    id={stock.stock}
-                    className="btn modal-button buy"
-                    onClick={handleNegociation}
-                  >
-                    C
-                  </label>
-                </td>
-              </tr>
-            ))}
-        </tbody>
+        {stocks.length === 0 ? <p>Loading...</p> : (
+          <tbody>
+            {stocks &&
+              stocks.map((stock, key) => (
+                <tr key={key}>
+                  <td>{stock.stock}</td>
+                  <td>{stock.amount}</td>
+                  <td>{stock.price.toFixed(2)}</td>
+                  <td>
+                    <label
+                      htmlFor="my-modal-3"
+                      id={stock.stock}
+                      className="btn modal-button buy"
+                      onClick={handleNegociation}
+                    >
+                      C
+                    </label>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        )}
       </table>
     </div>
   );
