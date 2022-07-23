@@ -8,7 +8,7 @@ import StocksList from './Pages/StocksList';
 function App() {
   return (
     <AppProvider>
-      <div className="App w-full h-full" data-theme="cupcake">
+      <div className="App w-full h-full  no-scrollbar" data-theme="cupcake">
         <Router>
           <Routes>
             <Route exact path='/' element={<Login />} />

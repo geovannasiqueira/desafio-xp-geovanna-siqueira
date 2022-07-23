@@ -30,7 +30,7 @@ function StocksTable() {
           </div>
         </div>
       ) : (
-        <table className="table table-zebra inline-flex flex-col gap-2 w-96 p-12 bg-white rounded-md shadow-xl ">
+        <table className="table table-zebra inline-flex flex-col gap-2 w-96 p-12 bg-white rounded-md shadow-xl mb-8">
           <thead>
             <tr>
               <th>Ação</th>
