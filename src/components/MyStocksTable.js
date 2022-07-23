@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import AppContext from "../context/AppContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useContext } from 'react';
+import AppContext from '../context/AppContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 function MyStocksTable() {
@@ -8,11 +8,11 @@ function MyStocksTable() {
     useContext(AppContext);
 
   const handleNegociation = ({ target }) => {
-    if (target.className.includes("buy")) {
-      setAction("Comprar");
+    if (target.className.includes('buy')) {
+      setAction('Comprar');
     }
-    if (target.className.includes("sell")) {
-      setAction("Vender");
+    if (target.className.includes('sell')) {
+      setAction('Vender');
     }
     const buy = stocks.filter((stock) => stock.stock === target.id);
     setStockBuy(buy[0]);
@@ -23,13 +23,13 @@ function MyStocksTable() {
       <h2 className="text-xl font-bold mb-6">Minhas ações</h2>
       {boughtStocks.length === 0 ? (
         <div className="px-4 my-6">
-          <div class="alert shadow-lg flex flex-row justify-around">
+          <div className="alert shadow-lg flex flex-row justify-around">
             <div>
             <FontAwesomeIcon icon={ faCircleInfo } />
             </div>
             <div className="flex flex-col items-start">
-              <h3 class="font-bold">Lista vazia</h3>
-              <div class="text-xs">Você ainda não possui nenhuma ação.</div>
+              <h3 className="font-bold">Lista vazia</h3>
+              <div className="text-xs">Você ainda não possui nenhuma ação.</div>
             </div>
           </div>
         </div>

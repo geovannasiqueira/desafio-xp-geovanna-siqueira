@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import AppContext from "../context/AppContext";
+import React, { useContext, useEffect } from 'react';
+import AppContext from '../context/AppContext';
 
 function StocksTable() {
   const { stocks, setStockBuy, getStocksList, setAction } =
@@ -7,13 +7,13 @@ function StocksTable() {
 
   useEffect(() => {
     getStocksList();
-    console.log(stocks.length);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNegociation = ({ target }) => {
-    if (target.className.includes("buy")) {
-      setAction("Comprar");
+    if (target.className.includes('buy')) {
+      setAction('Comprar');
     }
     const buy = stocks.filter((stock) => stock.stock === target.id);
     setStockBuy(buy[0]);
@@ -24,9 +24,9 @@ function StocksTable() {
       <h2 className="text-xl font-bold mb-6">Disponíveis para investir</h2>
       {stocks.length === 0 ? (
         <div className="px-4 my-6">
-          <div class="alert shadow-lg flex flex-col justify-around">
-            <h3 class="font-bold">Loading...</h3>
-            <progress class="progress w-28"></progress>
+          <div className="alert shadow-lg flex flex-col justify-around">
+            <h3 className="font-bold">Loading...</h3>
+            <progress className="progress w-28"></progress>
           </div>
         </div>
       ) : (

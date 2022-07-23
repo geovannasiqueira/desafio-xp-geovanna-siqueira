@@ -1,12 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPiggyBank, faHouse } from '@fortawesome/free-solid-svg-icons';
 
 function Navigation() {
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <div className="btm-nav btm-nav-sm">
+      <div className="btm-nav btm-nav-sm pb-4">
         <Link to="/stocks">
           <button>
           <FontAwesomeIcon icon={ faHouse } />  
