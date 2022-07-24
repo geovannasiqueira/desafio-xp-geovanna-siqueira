@@ -41,7 +41,7 @@ function Account() {
         <Header />
         <div className="flex justify-around bg-pink-100 w-full">
           <h1 className="text-lg font-bold">Saldo em Conta</h1>
-          <h1 className="text-lg font-bold">R$ {budget.toFixed(2)}</h1>
+          <h1 className="text-lg font-bold">R$ {Number(budget).toFixed(2)}</h1>
         </div>
         <div className="flex flex-col w-96 justify-around items-center">
           <input
