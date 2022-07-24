@@ -46,11 +46,11 @@ function NegociationModal() {
         {
           stock: stockBuy.stock,
           amount: qtd,
-          price: price,
+          price: (price).toFixed(2),
         },
       ])
     );
-    const updateBugdet = Number(budget) - Number(price);
+    const updateBugdet = Number(budget) - Number((price).toFixed(2));
     setBudget(updateBugdet);
     localStorage.setItem('budget', updateBugdet);
     updateAmount();
@@ -83,7 +83,7 @@ function NegociationModal() {
               <tr>
                 <th>Ação</th>
                 <th>Qtde</th>
-                <th>Valor (R$)</th>
+                <th>Valor (R$)/un</th>
               </tr>
             </thead>
             <tbody>
@@ -100,7 +100,7 @@ function NegociationModal() {
           <TotalText text="Tipo de ação" value={action} />
           <TotalText text="Preço por unidade" value={`R$ ${stockBuy.price}`} />
           <TotalText text="Quantidade de Ações" value={qtd} />
-          <TotalText text="Zero" value="Zero" />
+          <TotalText text="Taxa" value="Zero" />
           <div className="divider m-0"></div>
           <TotalText text="Total" value={`R$ ${price}`} total={true} />
           <div>

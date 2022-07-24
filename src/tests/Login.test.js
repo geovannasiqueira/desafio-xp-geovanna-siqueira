@@ -46,7 +46,7 @@ describe("Na tela de LOGIN,", () => {
     expect(passwordElement).toHaveValue("123456");
   });
 
-  it("não é possível fazer login, quando digita email inválido", async () => {
+  it("não é possível fazer login, quando digita email inválido", () => {
     render(<App />);
     expect(window.location.pathname).toBe("/");
 
@@ -68,7 +68,7 @@ describe("Na tela de LOGIN,", () => {
     expect(window.location.pathname).toBe("/");
   });
 
-  it("não é possível fazer login, quando digita senha inválida", async () => {
+  it("não é possível fazer login, quando digita senha inválida", () => {
     render(<App />);
     expect(window.location.pathname).toBe("/");
 
@@ -90,7 +90,7 @@ describe("Na tela de LOGIN,", () => {
     expect(window.location.pathname).toBe("/");
   });
 
-  it("é possível fazer login", async () => {
+  it("é possível fazer login", () => {
     render(<App />);
     expect(window.location.pathname).toBe("/");
 

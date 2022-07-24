@@ -45,7 +45,7 @@ function NegotiationInput() {
           Comprar
         </span>
         <input
-          type="text"
+          type="number"
           className="input input-bordered input-sm w-full max-w-xs"
           id="buyInput"
           value={buyValue}
@@ -58,7 +58,7 @@ function NegotiationInput() {
           Vender
         </span>
         <input
-          type="text"
+          type="number"
           className="input input-bordered input-sm w-full max-w-xs"
           id="sellInput"
           disabled={disableInputSell()}
