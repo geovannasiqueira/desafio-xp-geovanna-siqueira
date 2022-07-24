@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const MIN_PASSWORD_LENGTH = 5;
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleEmail = ({ target }) => {
     setEmail(target.value);
@@ -25,14 +26,16 @@ function Login() {
   const handleClick = () => {
     const date = new Date();
     const objEmail = { email: email, dataAcesso: date };
-    localStorage.setItem('user', JSON.stringify(objEmail));
-    setEmail('');
-    setPassword('');
+    localStorage.setItem("user", JSON.stringify(objEmail));
+    setEmail("");
+    setPassword("");
+    navigate('stocks');
   };
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <form className="inline-flex flex-col gap-2 w-96 p-12 bg-white rounded-md shadow-xl">
+      <form className="inline-flex items-center flex-col gap-2 w-96 p-12 bg-white rounded-md shadow-xl">
+        <div>
         <label htmlFor="email" className="label">
           <p className="label-text"> Email </p>
         </label>
@@ -41,12 +44,14 @@ function Login() {
           data-testid="email-input"
           name="email"
           id="email"
-          alt="email" 
+          alt="email"
           value={email}
           onChange={handleEmail}
           className="input input-bordered rounded-md h-10"
           placeholder="email@test.com"
         />
+        </div>
+        <div>
         <label htmlFor="password" className="label mt-4">
           <p className="label-text"> Senha </p>
         </label>
@@ -54,27 +59,27 @@ function Login() {
           type="password"
           name="password"
           id="password"
-          alt="senha" 
+          alt="senha"
           value={password}
           onChange={handlePassword}
           className="input input-bordered rounded-md h-10"
         />
+        </div>
         <label className="label">
           <span className="label-text-alt">
             A senha precisa ter pelo menos 6 caracteres
           </span>
         </label>
-        <Link to="/stocks">
-          <button
-            type="button"
-            disabled={enableButton()}
-            onClick={handleClick}
-            className="btn mt-4"
-            alt="botão de login" 
-          >
-            Login
-          </button>
-        </Link>
+
+        <button
+          type="button"
+          disabled={enableButton()}
+          onClick={handleClick}
+          className="btn w-28 mt-4"
+          alt="botão de login"
+        >
+          Login
+        </button>
       </form>
     </div>
   );

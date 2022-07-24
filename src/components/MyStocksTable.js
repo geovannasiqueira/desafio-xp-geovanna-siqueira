@@ -34,12 +34,12 @@ function MyStocksTable() {
           </div>
         </div>
       ) : (
-        <table className="table table-zebra inline-flex flex-col gap-2 w-96 p-12 bg-white rounded-md shadow-xl mb-8">
+        <table className="table table-zebra inline-flex flex-col gap-2 p-12 bg-white rounded-md shadow-xl mb-8">
           <thead>
             <tr>
               <th>Ação</th>
               <th>Qtde</th>
-              <th>Valor( R$ )/un</th>
+              <th>total ( R$ )</th>
               <th>Negociar</th>
             </tr>
           </thead>

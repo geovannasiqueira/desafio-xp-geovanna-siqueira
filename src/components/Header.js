@@ -16,7 +16,7 @@ function Header() {
   };
 
   return (
-    <div className="mb-4 sticky top-0 z-40 w-full">
+    <div className="mb-4 sticky top-0 z-40">
       <div className="navbar bg-base-100 ">
         <div className="flex-1 px-2">
           <h3>Olá, </h3>
