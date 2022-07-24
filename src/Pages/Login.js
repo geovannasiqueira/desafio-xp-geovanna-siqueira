@@ -41,6 +41,7 @@ function Login() {
           data-testid="email-input"
           name="email"
           id="email"
+          alt="email" 
           value={email}
           onChange={handleEmail}
           className="input input-bordered rounded-md h-10"
@@ -53,6 +54,7 @@ function Login() {
           type="password"
           name="password"
           id="password"
+          alt="senha" 
           value={password}
           onChange={handlePassword}
           className="input input-bordered rounded-md h-10"
@@ -68,6 +70,7 @@ function Login() {
             disabled={enableButton()}
             onClick={handleClick}
             className="btn mt-4"
+            alt="botão de login" 
           >
             Login
           </button>
