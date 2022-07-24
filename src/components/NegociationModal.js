@@ -50,7 +50,7 @@ function NegociationModal() {
         },
       ])
     );
-    const updateBugdet = Number(budget) - Number((price).toFixed(2));
+    const updateBugdet =( Number(budget) - Number(price)).toFixed(2);
     setBudget(updateBugdet);
     localStorage.setItem('budget', updateBugdet);
     updateAmount();

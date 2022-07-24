@@ -16,7 +16,7 @@ function QuantityBtn() {
 
   const sumPrice = () => {
     if (qtd > 0) {
-      setPrice((qtd * Number(stockBuy.price)).toFixed(2));
+      setPrice(Number(qtd) * Number(stockBuy.price));
     }
 
     if (qtd === 0) {
