@@ -46,7 +46,7 @@ function NegociationModal() {
         {
           stock: stockBuy.stock,
           amount: qtd,
-          price: (price).toFixed(2),
+          price: (price),
         },
       ])
     );
