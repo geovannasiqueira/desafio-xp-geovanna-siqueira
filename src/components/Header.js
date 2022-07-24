@@ -20,7 +20,7 @@ function Header() {
       <div className="navbar bg-base-100 ">
         <div className="flex-1 px-2">
           <h3>Olá, </h3>
-          <h4 className="btn btn-ghost normal-case text-lg">{email.email}</h4>
+          {email && <h4 className="btn btn-ghost normal-case text-lg">{email.email}</h4>}
         </div>
         <div className="flex-none">
           <Link to="/">

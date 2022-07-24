@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Login() {
-  const MIN_PASSWORD_LENGTH = 6;
+  const MIN_PASSWORD_LENGTH = 5;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +24,6 @@ function Login() {
 
   const handleClick = () => {
     const date = new Date();
-    console.log(date);
     const objEmail = { email: email, dataAcesso: date };
     localStorage.setItem('user', JSON.stringify(objEmail));
     setEmail('');
